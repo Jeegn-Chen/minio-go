@@ -147,12 +147,14 @@ func (c Client) putObjectCommon(ctx context.Context, bucketName, objectName stri
 		return c.putObjectNoChecksum(ctx, bucketName, objectName, reader, size, opts)
 	}
 
+	/* BUG(lc): Why do not V2 signer use streaming upload here.
 	if c.overrideSignerType.IsV2() {
 		if size >= 0 && size < minPartSize {
 			return c.putObjectNoChecksum(ctx, bucketName, objectName, reader, size, opts)
 		}
 		return c.putObjectMultipart(ctx, bucketName, objectName, reader, size, opts)
 	}
+	*/
 	if size < 0 {
 		return c.putObjectMultipartStreamNoLength(ctx, bucketName, objectName, reader, opts)
 	}
