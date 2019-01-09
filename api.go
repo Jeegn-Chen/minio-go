@@ -742,6 +742,8 @@ func (c Client) newRequest(method string, metadata requestMetadata) (req *http.R
 		req.Header.Set(k, v[0])
 	}
 
+	req.Header.Set("x-request-source", "CSP-Moira")
+
 	// Go net/http notoriously closes the request body.
 	// - The request Body, if non-nil, will be closed by the underlying Transport, even on errors.
 	// This can cause underlying *os.File seekers to fail, avoid that
