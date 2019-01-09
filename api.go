@@ -108,7 +108,7 @@ const (
 //       Minio (OS; ARCH) LIB/VER APP/VER
 const (
 	libraryUserAgentPrefix = "Minio (" + runtime.GOOS + "; " + runtime.GOARCH + ") "
-	libraryUserAgent       = "Minio-CSP"
+	libraryUserAgent       = libraryUserAgentPrefix + libraryName + "/" + libraryVersion
 )
 
 // BucketLookupType is type of url lookup supported by server.
