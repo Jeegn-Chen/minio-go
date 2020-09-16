@@ -70,6 +70,7 @@ func (c Client) copyObjectDoQ(
 		objectName:   destObject,
 		customHeader: headers,
 		queryValues: queryValues,
+		bucketLocation: "default",
 	})
 	defer closeResponse(resp)
 	if err != nil {
@@ -124,6 +125,7 @@ func (c Client) RemoveObjectQ(bucketName, objectName string, qValues map[string]
 		objectName:       objectName,
 		contentSHA256Hex: emptySHA256Hex,
 		queryValues:      queryValues,
+		bucketLocation: "default",
 	})
 	defer closeResponse(resp)
 	if err != nil {
