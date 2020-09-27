@@ -249,7 +249,7 @@ func TestCopyRemote(t *testing.T)  {
 		t.Fatal("Error: object is already closed, should return error")
 	}
 
-	err = c.RemoveObjectQ(bucketName, objectName, map[string]string{})
+	err = c.RemoveObjectQ(bucketName, objectName, map[string]string{}, map[string]string{})
 	if err != nil {
 		t.Fatal("Error: ", err)
 	}

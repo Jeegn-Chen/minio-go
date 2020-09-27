@@ -107,7 +107,11 @@ func (c Client) CopyObjectQ(
 		metadata, qValues)
 }
 
-func (c Client) RemoveObjectQ(bucketName, objectName string, qValues map[string]string) error {
+func (c Client) RemoveObjectQ(
+	bucketName,
+	objectName string,
+	metadata map[string]string,
+	qValues map[string]string) error {
 	// Input validation.
 	if err := s3utils.CheckValidBucketName(bucketName); err != nil {
 		return err
@@ -115,6 +119,14 @@ func (c Client) RemoveObjectQ(bucketName, objectName string, qValues map[string]
 	if err := s3utils.CheckValidObjectName(objectName); err != nil {
 		return err
 	}
+	// Build headers.
+	headers := make(http.Header)
+
+	// Set all the metadata headers.
+	for k, v := range metadata {
+		headers.Set(k, v)
+	}
+
 	queryValues := make(url.Values)
 	for k, v := range qValues {
 		queryValues.Set(k, v)
@@ -124,6 +136,7 @@ func (c Client) RemoveObjectQ(bucketName, objectName string, qValues map[string]
 		bucketName:       bucketName,
 		objectName:       objectName,
 		contentSHA256Hex: emptySHA256Hex,
+		customHeader: headers,
 		queryValues:      queryValues,
 		bucketLocation: "default",
 	})
